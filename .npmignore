@@ -2,7 +2,7 @@
 .*.yml
 .idea
 .nyc_output
-webpack.config.*
+webpack.*
 docs
 test
 example
