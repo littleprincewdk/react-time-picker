@@ -11,6 +11,11 @@ export default class DatePanel extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount() {
+    this.props.getBodyPanel(this.$BodyPanel);
+  }
+
   // get cur month date distribution
   getDates() {
     const { today, curTime, retTime } = this.props;
@@ -106,7 +111,7 @@ export default class DatePanel extends React.Component {
   render() {
     const dates = this.getDates();
     return (
-      <div className={`${Style.body} ${Style.date}`} onClick={this.handleChange} ref={ele => { this.body = ele; }}>
+      <div className={`${Style.body} ${Style.date} ${Style.animated}`} onClick={this.handleChange} ref={ele => { this.$BodyPanel = ele; }}>
         {dates.map((row, index) => (
           <div key={index} className={Style.row}>
             {row.map(item => (
@@ -126,4 +131,5 @@ DatePanel.propTypes = {
   onTimeChange: PropTypes.func,
   handleSelectTime: PropTypes.func,
   handleSwitchPanel: PropTypes.func,
+  getBodyPanel: PropTypes.func,
 };

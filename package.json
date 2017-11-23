@@ -12,7 +12,7 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server",
     "start:doc": "webpack-dev-server --config webpack.doc.js --colors --port 8080",
-    "start:doc:dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.doc.js --colors --port 8080",
+    "start:doc:dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.doc.js --colors --port 8088",
     "server": "node server.js",
     "eslint": "eslint ./src --ext .js --fix",
     "eslint:doc": "eslint ./docs --ext .js --fix"
