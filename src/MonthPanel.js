@@ -17,6 +17,10 @@ export default class MonthPanel extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getBodyPanel(this.$BodyPanel);
+  }
+
   getMonths() {
     const { today, curTime, retTime } = this.props;
     return months.map(row => row.map(item => {
@@ -49,7 +53,7 @@ export default class MonthPanel extends React.Component {
   render() {
     const months = this.getMonths();
     return (
-      <div className={`${Style.body} ${Style.month}`} onClick={this.handleChange}>
+      <div className={`${Style.body} ${Style.month} ${Style.animated}`} onClick={this.handleChange} ref={ele => { this.$BodyPanel = ele; }}>
         {months.map((row, index) => (
           <div key={index} className={Style.row}>
             {row.map(item => (
@@ -69,4 +73,5 @@ MonthPanel.propTypes = {
   onTimeChange: PropTypes.func,
   handleSelectTime: PropTypes.func,
   handleSwitchPanel: PropTypes.func,
+  getBodyPanel: PropTypes.func,
 };

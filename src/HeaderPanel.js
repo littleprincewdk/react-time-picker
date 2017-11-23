@@ -19,17 +19,17 @@ export default class HeaderPanel extends React.Component {
   handleSwitchMonth(increment) {
     const { curTime, handleSwitchTime } = this.props;
     const newTime = getNewMonth(curTime, increment);
-    handleSwitchTime(newTime);
+    handleSwitchTime(newTime, increment, 'month');
   }
   handleSwitchYear(increment) {
     const { curTime, handleSwitchTime } = this.props;
     const newTime = getNewYear(curTime, increment);
-    handleSwitchTime(newTime);
+    handleSwitchTime(newTime, increment, 'year');
   }
   handleSwitchDecade(increment) {
     const { curTime, handleSwitchTime } = this.props;
     const newTime = { ...curTime, decade: curTime.decade + increment };
-    handleSwitchTime(newTime);
+    handleSwitchTime(newTime, increment, 'decade');
   }
 
   renderWeek() {

@@ -71,6 +71,7 @@ export default class TimePicker extends React.Component {
     this.handleSwitchPanel = this.handleSwitchPanel.bind(this);
     this.handleSwitchTime = this.handleSwitchTime.bind(this);
     this.handleSelectTime = this.handleSelectTime.bind(this);
+    this.getBodyPanel = this.getBodyPanel.bind(this);
   }
 
   componentWillMount() {
@@ -101,9 +102,17 @@ export default class TimePicker extends React.Component {
     });
   }
   hide() {
-    this.setState({
-      isShow: false,
-    });
+    this.picker.classList.add(Style.zoomOut);
+    setTimeout(() => {
+      this.setState({
+        isShow: false,
+      }, () => {
+        this.picker.classList.remove(Style.zoomOut);
+      });
+    }, 1000);
+  }
+  getBodyPanel($Panel) {
+    this.$BodyPanel = $Panel;
   }
   handleSwitchPanel(panel) {
     this.content.classList.add(Style.zoomOut);
@@ -113,10 +122,21 @@ export default class TimePicker extends React.Component {
       });
     }, 100);
   }
-  handleSwitchTime(curTime) {
-    this.setState({
-      curTime,
-    });
+  handleSwitchTime(curTime, increment, name) {
+    const fadeOut = increment > 0 ? Style.fadeOutLeft : Style.fadeOutRight;
+    const fadeIn = increment > 0 ? Style.fadeInRight : Style.fadeInLeft;
+    this.$BodyPanel.classList.add(fadeOut);
+    setTimeout(() => {
+      this.setState({
+        curTime,
+      }, () => {
+        this.$BodyPanel.classList.remove(fadeOut);
+        this.$BodyPanel.classList.add(fadeIn);
+        setTimeout(() => {
+          this.$BodyPanel.classList.remove(fadeIn);
+        }, 100);
+      });
+    }, 100);
   }
   handleSelectTime(time, panel) {
     this.setState({
@@ -136,8 +156,8 @@ export default class TimePicker extends React.Component {
     const { placement, clockPressChangeInterval } = this.props;
     const { curTime, retTime, panel } = this.state;
     return (
-      <div className={Style.wrapper} style={{ display: this.state.isShow ? 'block' : 'none' }} ref={ele => { this.picker = ele; }} data-placement={placement}>
-        <div className={`${Style.picker} ${Style.animated}`} ref={ele => { this.content = ele; }}>
+      <div className={`${Style.wrapper} ${Style.animated} ${Style.hinge}`} style={{ display: this.state.isShow ? 'block' : 'none' }} ref={ele => { this.picker = ele; }} data-placement={placement}>
+        <div className={`${Style.picker} ${Style.animated} ${Style.zoomIn}`} ref={ele => { this.content = ele; }}>
           <HeaderPanel
             panel={panel}
             curTime={curTime}
@@ -147,11 +167,11 @@ export default class TimePicker extends React.Component {
             handleSwitchPanel={this.handleSwitchPanel}
           />
           <BodyPanel
-            ref={ele => { this.content = ele; }}
             panel={panel}
             today={this.today}
             curTime={curTime}
             retTime={retTime}
+            getBodyPanel={this.getBodyPanel}
             handleSelectTime={this.handleSelectTime}
             handleSwitchTime={this.handleSwitchTime}
             handleSwitchPanel={this.handleSwitchPanel}

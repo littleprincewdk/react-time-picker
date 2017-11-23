@@ -11,6 +11,11 @@ export default class YearPanel extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount() {
+    this.props.getBodyPanel(this.$BodyPanel);
+  }
+
   getYears() {
     const { today, curTime, retTime } = this.props;
     const latestDecadesStart = curTime.decade * 10;
@@ -60,7 +65,7 @@ export default class YearPanel extends React.Component {
   render() {
     const years = this.getYears();
     return (
-      <div className={`${Style.body} ${Style.year}`} onClick={this.handleChange}>
+      <div className={`${Style.body} ${Style.year} ${Style.animated}`} onClick={this.handleChange} ref={ele => { this.$BodyPanel = ele; }}>
         {years.map((row, index) => (
           <div key={index} className={Style.row}>
             {row.map(item => (
@@ -80,4 +85,5 @@ YearPanel.propTypes = {
   onTimeChange: PropTypes.func,
   handleSelectTime: PropTypes.func,
   handleSwitchPanel: PropTypes.func,
+  getBodyPanel: PropTypes.func,
 };
