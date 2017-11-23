@@ -28,16 +28,42 @@ if (!IS_DEV) {
 
 module.exports = {
   entry: {
-    TimePicker: './src/index.js',
+    index: './src/index.js',
   },
   plugins,
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     libraryTarget: 'umd',
-    library: 'TimePicker'
+    library: 'DatePicker',
   },
+  externals: [
+    {
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom'
+      }
+    },
+    {
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react'
+      }
+    },
+    {
+      'popper.js': {
+        root: 'Popper',
+        commonjs2: 'popper',
+        commonjs: 'popper',
+        amd: 'popper'
+      }
+    }
+  ],
   module: {
     rules: [
       {

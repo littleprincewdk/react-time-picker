@@ -1,5 +1,9 @@
 ### React Time Picker
-
+### demo
+```bash
+npm install
+npm run start:doc:dev
+```
 ### usage
 ```
 constructor(props) {
