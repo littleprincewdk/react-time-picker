@@ -28,7 +28,8 @@ export default class DatePanel extends React.Component {
     firstDate.setSeconds(0);
     firstDate.setMilliseconds(0);
     const firstDay = firstDate.getDay();
-    const lastMonthCountDays = getCountDays(getNewMonth(curTime, -1));
+    const lastMonth = getNewMonth(curTime, -1);
+    const lastMonthCountDays = getCountDays(lastMonth);
     // max row num is 6
     const curMonthDates = [[], [], [], [], [], []];
     const lastMonthTailCount = (firstDay + 7) % 7;
@@ -40,7 +41,7 @@ export default class DatePanel extends React.Component {
         value: date,
         className: [Style.prev],
       };
-      const itemTime = { ...curTime, date };
+      const itemTime = { ...lastMonth, date };
       if (isSameDate(itemTime, retTime)) {
         item.className.push(Style.active);
       }
@@ -72,6 +73,7 @@ export default class DatePanel extends React.Component {
       curMonthDates[row][col] = item;
     }
     // next month
+    const nextMonth = getNewMonth(curTime, 1);
     const nextMonthHeadCount = (maxRow + 1) * 7 - curMonthCountDays - lastMonthTailCount;
     for (let i = 0; i < nextMonthHeadCount; i++) {
       const date = i + 1;
@@ -80,7 +82,7 @@ export default class DatePanel extends React.Component {
         value: date,
         className: [Style.next],
       };
-      const itemTime = { ...curTime, date };
+      const itemTime = { ...nextMonth, date };
       if (isSameDate(itemTime, retTime)) {
         item.className.push(Style.active);
       }
@@ -100,10 +102,17 @@ export default class DatePanel extends React.Component {
     if (typeof date !== 'undefined') {
       const { curTime } = this.props;
       date = parseInt(date, 10);
-      const time = {
+      let time = {
         ...curTime,
         date,
       };
+      if (e.target.classList.contains(Style.prev)) {
+        time = getNewMonth(time, -1);
+      }
+      if (e.target.classList.contains(Style.next)) {
+        time = getNewMonth(time, 1);
+      }
+
       this.props.handleSelectTime(time, 'date');
     }
   }
