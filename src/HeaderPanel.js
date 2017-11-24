@@ -53,11 +53,11 @@ export default class HeaderPanel extends React.Component {
         _handleSwitchPanel = handleSwitchPanel.bind(null, 'date');
         break;
       case 'minute':
-        title = <i className="fa fa-calendar" />;
+        title = <i className={`${Style.icon} ${Style.calendar}`} />;
         _handleSwitchPanel = handleSwitchPanel.bind(null, 'date');
         break;
       case 'hour':
-        title = <i className="fa fa-calendar" />;
+        title = <i className={`${Style.icon} ${Style.calendar}`} />;
         _handleSwitchPanel = handleSwitchPanel.bind(null, 'date');
         break;
       case 'date':
