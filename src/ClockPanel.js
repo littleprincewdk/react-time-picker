@@ -25,6 +25,7 @@ export default class ClockPanel extends React.Component {
       onTouchStart: this.handleSwitchStart.bind(null, increment, name),
       onMouseUp: this.handleSwitchEnd,
       onTouchEnd: this.handleSwitchEnd,
+      onMouseOut: this.handleSwitchEnd,
     };
   }
 
