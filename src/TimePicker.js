@@ -102,14 +102,17 @@ export default class TimePicker extends React.Component {
     });
   }
   hide() {
-    this.picker.classList.add(Style.zoomOut);
+    /*this.picker.classList.add(Style.zoomOut);
     setTimeout(() => {
       this.setState({
         isShow: false,
       }, () => {
         this.picker.classList.remove(Style.zoomOut);
       });
-    }, 1000);
+    }, 1000);*/
+    this.setState({
+      isShow: false,
+    });
   }
   getBodyPanel($Panel) {
     this.$BodyPanel = $Panel;
